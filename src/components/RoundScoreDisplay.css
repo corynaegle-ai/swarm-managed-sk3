@@ -1,0 +1,95 @@
+.round-score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  margin: 8px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+  min-width: 120px;
+}
+
+.round-score-display.highlight {
+  background-color: #e8f5e8;
+  border-color: #28a745;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  animation: scoreHighlight 0.5s ease-in-out;
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.score-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #212529;
+  transition: color 0.3s ease-in-out;
+}
+
+.round-score-display.highlight .score-value {
+  color: #155724;
+}
+
+@keyframes scoreHighlight {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .round-score-display {
+    min-width: 100px;
+    padding: 12px;
+    margin: 6px;
+  }
+  
+  .player-name {
+    font-size: 12px;
+  }
+  
+  .score-value {
+    font-size: 20px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .round-score-display {
+    border: 2px solid #000;
+  }
+  
+  .round-score-display.highlight {
+    border-color: #000;
+    background-color: #fff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .round-score-display {
+    transition: none;
+  }
+  
+  .round-score-display.highlight {
+    animation: none;
+    transform: none;
+  }
+}
