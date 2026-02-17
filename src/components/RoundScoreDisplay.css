@@ -1,0 +1,94 @@
+.round-score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.round-score-display.highlighted {
+  border-color: #4CAF50;
+  background: linear-gradient(145deg, #e8f5e8, #f0f8f0);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+  transform: scale(1.05);
+  animation: scoreHighlight 2s ease-in-out;
+}
+
+.player-info {
+  margin-bottom: 8px;
+}
+
+.player-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.score-value {
+  margin-bottom: 8px;
+}
+
+.score-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.score-indicator {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.positive-indicator {
+  color: #27ae60;
+}
+
+.negative-indicator {
+  color: #e74c3c;
+}
+
+.neutral-indicator {
+  color: #7f8c8d;
+}
+
+@keyframes scoreHighlight {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .round-score-display {
+    min-width: 100px;
+    padding: 12px;
+  }
+  
+  .score-number {
+    font-size: 24px;
+  }
+  
+  .player-name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .round-score-display {
+    min-width: 80px;
+    padding: 8px;
+  }
+  
+  .score-number {
+    font-size: 20px;
+  }
+}
