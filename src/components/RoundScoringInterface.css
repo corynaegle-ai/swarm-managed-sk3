@@ -1,0 +1,97 @@
+.round-scoring-interface {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.round-scoring-interface h3 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+}
+
+.scoring-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.player-scoring-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.player-name {
+  font-weight: bold;
+  color: #333;
+  min-width: 120px;
+  margin-right: 20px;
+}
+
+.tricks-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.tricks-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.tricks-input {
+  width: 80px;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.tricks-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.tricks-input.error {
+  border-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .player-scoring-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .player-name {
+    min-width: auto;
+    margin-right: 0;
+  }
+  
+  .tricks-input-container {
+    align-items: stretch;
+  }
+  
+  .tricks-input {
+    width: 100%;
+    max-width: 120px;
+  }
+}
