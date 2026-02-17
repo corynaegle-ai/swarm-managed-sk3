@@ -1,0 +1,274 @@
+.bid-input-container {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.bid-input-header {
+  margin-bottom: 16px;
+}
+
+.bid-input-header h4 {
+  margin: 0 0 4px 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bid-range-hint {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.bid-input-form {
+  margin-bottom: 12px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-wrapper {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper.error {
+  animation: shake 0.5s ease-in-out;
+}
+
+.input-wrapper.submitted {
+  pointer-events: none;
+}
+
+.bid-input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.bid-input:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.bid-input.invalid {
+  border-color: #f44336;
+  background: #ffebee;
+}
+
+.bid-input.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+}
+
+.bid-input.submitted {
+  border-color: #4caf50;
+  background: #f1f8e9;
+  color: #2e7d32;
+}
+
+.bid-input:disabled {
+  background: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.input-status {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-status.submitted {
+  color: #4caf50;
+}
+
+.status-icon {
+  font-size: 18px;
+  animation: checkmark 0.5s ease-in-out;
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 6px;
+  padding: 4px 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.error-icon {
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.submit-btn, .reset-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.submit-btn {
+  background: #ddd;
+  color: #999;
+}
+
+.submit-btn.ready {
+  background: #2196f3;
+  color: white;
+}
+
+.submit-btn.ready:hover {
+  background: #1976d2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.reset-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.reset-btn:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.reset-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.submission-feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: #f1f8e9;
+  border-radius: 6px;
+  color: #2e7d32;
+  font-weight: 600;
+  animation: slideUp 0.3s ease;
+  flex: 1;
+}
+
+.feedback-icon {
+  font-size: 18px;
+}
+
+.feedback-text {
+  font-size: 14px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bid-input-footer {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 12px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.player-label {
+  color: #666;
+}
+
+.player-name {
+  color: #333;
+  font-weight: 600;
+  background: #e3f2fd;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .bid-input-container {
+    padding: 12px;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+  
+  .submit-btn, .reset-btn {
+    width: 100%;
+  }
+}
