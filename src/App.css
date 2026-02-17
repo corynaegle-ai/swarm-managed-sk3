@@ -1,0 +1,181 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.App-main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Game Screen Styles */
+.game-screen {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.game-header h2 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.5rem;
+}
+
+.return-to-setup-btn {
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.return-to-setup-btn:hover {
+  background-color: #c53030;
+}
+
+.return-to-setup-btn:active {
+  transform: translateY(1px);
+}
+
+.players-info {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.players-info h3 {
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+  font-size: 1.2rem;
+}
+
+.players-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.players-info li {
+  background-color: #f7fafc;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  border-left: 4px solid #4299e1;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.game-placeholder {
+  background-color: #f7fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 2px dashed #cbd5e0;
+  color: #718096;
+}
+
+.game-placeholder p {
+  margin: 0.5rem 0;
+}
+
+.game-placeholder p:first-child {
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.game-placeholder pre {
+  background-color: #edf2f7;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: left;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+/* Game Finished Screen */
+.game-finished {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.game-finished h2 {
+  margin: 0 0 2rem 0;
+  color: #2d3748;
+  font-size: 2rem;
+}
+
+.game-finished button {
+  background-color: #48bb78;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.game-finished button:hover {
+  background-color: #38a169;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App-main {
+    padding: 1rem;
+  }
+  
+  .game-screen {
+    padding: 1.5rem;
+  }
+  
+  .game-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .game-header h2 {
+    text-align: center;
+  }
+  
+  .return-to-setup-btn {
+    align-self: center;
+    width: fit-content;
+  }
+}
