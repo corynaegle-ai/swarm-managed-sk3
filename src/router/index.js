@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import GameView from '@/views/GameView.vue'
 import FinalScoresView from '@/views/FinalScoresView.vue'
+import FinalScoresView from '@/views/FinalScoresView.vue'
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: '/game',
     name: 'Game',
     component: GameView
+  },
+  {
+    path: '/final-scores',
+    name: 'FinalScores',
+    component: FinalScoresView
   },
   {
     path: '/final-scores',

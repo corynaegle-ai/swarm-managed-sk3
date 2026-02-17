@@ -1,154 +1,94 @@
 <template>
   <div class="final-scores-view">
-    <div class="winner-section">
-      <h1 class="winner-title">🎉 Game Complete! 🎉</h1>
-      <h2 class="winner-name">{{ winner.name }} Wins!</h2>
-      <p class="winner-score">Final Score: {{ winner.score }}</p>
-    </div>
-
-    <div class="scores-section">
-      <h3>Final Rankings</h3>
-      <div class="scores-grid">
-        <ScoreSummaryCard
-          v-for="(player, index) in rankedPlayers"
-          :key="player.id"
-          :player="player"
-          :rank="index + 1"
-        />
+    <div class="container mx-auto p-6">
+      <!-- Winner Announcement Section -->
+      <div class="winner-section mb-8 text-center">
+        <h1 class="text-4xl font-bold text-green-600 mb-4">🎉 Game Complete! 🎉</h1>
+        <div class="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-6">
+          <h2 class="text-2xl font-semibold mb-2">🏆 Winner</h2>
+          <p class="text-xl font-bold text-green-700">{{ winner.name }}</p>
+          <p class="text-lg text-gray-600">Final Score: {{ winner.totalScore }} points</p>
+        </div>
       </div>
-    </div>
 
-    <div class="actions-section">
-      <button 
-        class="restart-button"
-        @click="handleRestartGame"
-      >
-        🎲 Play Again
-      </button>
+      <!-- All Player Scores Section -->
+      <div class="scores-section mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-center">Final Rankings</h2>
+        <div class="grid gap-4">
+          <ScoreSummaryCard
+            v-for="(player, index) in rankedPlayers"
+            :key="player.name"
+            :player="player"
+            :rank="index + 1"
+            :isWinner="index === 0"
+          />
+        </div>
+      </div>
+
+      <!-- Restart Game Button -->
+      <div class="text-center">
+        <button
+          @click="handleRestartGame"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors"
+        >
+          🎮 Start New Game
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useGameStore } from '@/store/gameStore'
 import ScoreSummaryCard from '@/components/ScoreSummaryCard.vue'
-import { useRouter } from 'vue-router'
 
-export default {
-  name: 'FinalScoresView',
-  components: {
-    ScoreSummaryCard
-  },
-  setup() {
-    const gameStore = useGameStore()
-    const router = useRouter()
+const router = useRouter()
+const gameStore = useGameStore()
 
-    const rankedPlayers = computed(() => {
-      return [...gameStore.players]
-        .sort((a, b) => b.totalScore - a.totalScore)
-    })
+// Use the store's winner computed property
+const winner = computed(() => gameStore.winner)
 
-    const winner = computed(() => {
-      return rankedPlayers.value[0] || { name: 'Unknown', score: 0 }
-    })
+// Get all players ranked by total score
+const rankedPlayers = computed(() => {
+  return [...gameStore.players].sort((a, b) => b.totalScore - a.totalScore)
+})
 
-    const handleRestartGame = () => {
-      gameStore.restartGame()
-      router.push('/')
-    }
-
-    return {
-      rankedPlayers,
-      winner,
-      handleRestartGame
-    }
-  }
+// Handle restart game
+const handleRestartGame = () => {
+  gameStore.restartGame()
+  router.push('/')
 }
 </script>
 
 <style scoped>
 .final-scores-view {
-  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 0;
+}
+
+.container {
   max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .winner-section {
-  margin-bottom: 3rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 1rem;
-  color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.winner-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
+.scores-section {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
-.winner-name {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #ffd700;
-}
-
-.winner-score {
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
-.scores-section h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.scores-grid {
-  display: grid;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.actions-section {
-  margin-top: 2rem;
-}
-
-.restart-button {
-  background: linear-gradient(135deg, #4CAF50, #45a049);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-}
-
-.restart-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-}
-
-.restart-button:active {
-  transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-  .final-scores-view {
-    padding: 1rem;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .winner-title {
-    font-size: 2rem;
-  }
-  
-  .winner-name {
-    font-size: 1.5rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
