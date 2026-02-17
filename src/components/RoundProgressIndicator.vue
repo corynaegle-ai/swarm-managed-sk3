@@ -25,17 +25,14 @@ export default {
   props: {
     currentRound: {
       type: Number,
-      required: true,
       default: 1
     },
     handsCount: {
       type: Number,
-      required: true,
       default: 1
     },
     isGameplayActive: {
       type: Boolean,
-      required: true,
       default: false
     }
   },
