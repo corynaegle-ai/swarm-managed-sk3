@@ -25,13 +25,17 @@ const ScoreHistory = ({ scoreHistory = [] }) => {
             </tr>
           </thead>
           <tbody>
+            {/* Using index as key is acceptable here because:
+               - Score history is append-only (rounds are never reordered or removed)
+               - Each round represents a historical snapshot at a specific position
+               - The list order is semantically tied to the chronological sequence */}
             {scoreHistory.map((round, index) => (
               <tr key={index} className="score-history__row">
                 <td className="score-history__round">
                   Round {index + 1}
                 </td>
                 <td className="score-history__score">
-                  {typeof round === 'object' ? round.score : round}
+                  {round}
                 </td>
               </tr>
             ))}
