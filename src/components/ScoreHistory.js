@@ -2,13 +2,13 @@ import React from 'react';
 import './ScoreHistory.css';
 
 const ScoreHistory = ({ scoreHistory = [] }) => {
-  if (!scoreHistory || scoreHistory.length === 0) {
+  if (scoreHistory.length === 0) {
     return (
       <div className="score-history">
         <h3 className="score-history__title">Score History</h3>
-        <div className="score-history__empty">
-          <p>No previous rounds yet. Start playing to see your score history!</p>
-        </div>
+        <p className="score-history__empty-state">
+          No previous rounds played yet. Start a game to see your score history!
+        </p>
       </div>
     );
   }
@@ -16,8 +16,8 @@ const ScoreHistory = ({ scoreHistory = [] }) => {
   return (
     <div className="score-history">
       <h3 className="score-history__title">Score History</h3>
-      <div className="score-history__list" role="region" aria-label="Previous round scores">
-        <table className="score-history__table" role="table">
+      <div className="score-history__container">
+        <table className="score-history__table" role="table" aria-label="Previous round scores">
           <thead>
             <tr>
               <th scope="col">Round</th>
@@ -25,13 +25,13 @@ const ScoreHistory = ({ scoreHistory = [] }) => {
             </tr>
           </thead>
           <tbody>
-            {scoreHistory.map((score, index) => (
+            {scoreHistory.map((round, index) => (
               <tr key={index} className="score-history__row">
                 <td className="score-history__round">
                   Round {index + 1}
                 </td>
                 <td className="score-history__score">
-                  {score}
+                  {typeof round === 'object' ? round.score : round}
                 </td>
               </tr>
             ))}
