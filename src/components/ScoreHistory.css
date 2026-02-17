@@ -1,27 +1,23 @@
 .score-history {
-  width: 100%;
-  max-width: 600px;
-  margin: 1rem auto;
-  padding: 1rem;
   background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 .score-history__title {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
-  text-align: center;
+  color: #2d3748;
 }
 
-.score-history__empty-state {
+.score-history__empty {
   text-align: center;
-  color: #666;
+  padding: 2rem;
+  color: #718096;
   font-style: italic;
-  padding: 2rem 1rem;
-  margin: 0;
 }
 
 .score-history__container {
@@ -34,23 +30,28 @@
   margin: 0;
 }
 
-.score-history__table th {
-  background-color: #f8f9fa;
+.score-history__table th,
+.score-history__table td {
   padding: 0.75rem;
   text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.score-history__table th {
+  background-color: #f7fafc;
   font-weight: 600;
-  color: #495057;
-  border-bottom: 2px solid #dee2e6;
+  color: #2d3748;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .score-history__table td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #dee2e6;
-  color: #333;
+  color: #4a5568;
 }
 
 .score-history__row:hover {
-  background-color: #f8f9fa;
+  background-color: #f7fafc;
 }
 
 .score-history__round {
@@ -58,63 +59,43 @@
 }
 
 .score-history__score {
-  text-align: right;
   font-weight: 600;
-  color: #007bff;
+  color: #2b6cb0;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .score-history {
+    padding: 1rem;
     margin: 0.5rem;
-    padding: 0.75rem;
   }
   
   .score-history__title {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
   }
   
   .score-history__table th,
   .score-history__table td {
     padding: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
+  .score-history {
+    padding: 0.75rem;
+  }
+  
   .score-history__table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
   
   .score-history__table th,
   .score-history__table td {
-    padding: 0.4rem;
+    padding: 0.375rem;
   }
   
-  .score-history__title {
-    font-size: 1rem;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .score-history {
-    border: 2px solid #000;
-  }
-  
-  .score-history__table th {
-    background-color: #000;
-    color: #fff;
-  }
-  
-  .score-history__table td {
-    border-bottom: 2px solid #000;
-  }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .score-history__row {
-    transition: none;
+  .score-history__empty {
+    padding: 1.5rem 1rem;
   }
 }

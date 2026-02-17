@@ -2,13 +2,13 @@ import React from 'react';
 import './ScoreHistory.css';
 
 const ScoreHistory = ({ scoreHistory = [] }) => {
-  if (scoreHistory.length === 0) {
+  if (!scoreHistory || scoreHistory.length === 0) {
     return (
       <div className="score-history">
         <h3 className="score-history__title">Score History</h3>
-        <p className="score-history__empty-state">
-          No previous rounds played yet. Start a game to see your score history!
-        </p>
+        <div className="score-history__empty">
+          <p>No previous rounds to display</p>
+        </div>
       </div>
     );
   }
@@ -25,20 +25,17 @@ const ScoreHistory = ({ scoreHistory = [] }) => {
             </tr>
           </thead>
           <tbody>
-            {/* Using index as key is acceptable here because:
-               - Score history is append-only (rounds are never reordered or removed)
-               - Each round represents a historical snapshot at a specific position
-               - The list order is semantically tied to the chronological sequence */}
-            {scoreHistory.map((round, index) => (
-              <tr key={index} className="score-history__row">
-                <td className="score-history__round">
-                  Round {index + 1}
-                </td>
-                <td className="score-history__score">
-                  {round}
-                </td>
-              </tr>
-            ))}
+            {scoreHistory.map((round, index) => {
+              const roundNumber = round.roundNumber || index + 1;
+              const score = round.score || round;
+              
+              return (
+                <tr key={`round-${roundNumber}`} className="score-history__row">
+                  <td className="score-history__round">Round {roundNumber}</td>
+                  <td className="score-history__score">{score}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
