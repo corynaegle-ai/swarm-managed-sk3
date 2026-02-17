@@ -1,67 +1,147 @@
 <template>
-  <div class="score-summary-card" :class="{ 'winner-card': isWinner }">
-    <div class="flex items-center justify-between p-4">
-      <div class="flex items-center space-x-4">
-        <div class="rank-badge" :class="rankBadgeClass">
-          {{ rank }}
-        </div>
-        <div>
-          <h3 class="text-lg font-semibold" :class="{ 'text-yellow-800': isWinner }">
-            {{ player.name }}
-            <span v-if="isWinner" class="ml-2">🏆</span>
-          </h3>
-        </div>
+  <div class="score-summary-card">
+    <div class="player-info">
+      <div class="rank-badge" :class="getRankClass(rank)">
+        #{{ rank }}
       </div>
-      <div class="score-display">
-        <span class="text-2xl font-bold" :class="{ 'text-yellow-800': isWinner }">
-          {{ player.totalScore }}
+      <div class="player-details">
+        <h3 class="player-name">{{ player.name }}</h3>
+        <p class="total-score">{{ player.totalScore }} points</p>
+      </div>
+    </div>
+    <div class="round-scores">
+      <div class="round-scores-header">
+        <span>Round Scores:</span>
+      </div>
+      <div class="scores-grid">
+        <span 
+          v-for="(score, index) in player.roundScores" 
+          :key="index"
+          class="round-score"
+        >
+          R{{ index + 1 }}: {{ score }}
         </span>
-        <span class="text-sm text-gray-600 ml-1">pts</span>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { computed } from 'vue'
-
-const props = defineProps({
-  player: {
-    type: Object,
-    required: true
+<script>
+export default {
+  name: 'ScoreSummaryCard',
+  props: {
+    player: {
+      type: Object,
+      required: true
+    },
+    rank: {
+      type: Number,
+      default: 1
+    }
   },
-  rank: {
-    type: Number,
-    required: true
-  },
-  isWinner: {
-    type: Boolean,
-    default: false
+  methods: {
+    getRankClass(rank) {
+      if (rank === 1) return 'rank-first'
+      if (rank === 2) return 'rank-second'
+      if (rank === 3) return 'rank-third'
+      return 'rank-other'
+    }
   }
-})
-
-const rankBadgeClass = computed(() => {
-  if (props.rank === 1) return 'bg-yellow-500 text-white'
-  if (props.rank === 2) return 'bg-gray-400 text-white'
-  if (props.rank === 3) return 'bg-orange-600 text-white'
-  return 'bg-gray-200 text-gray-700'
-})
+}
 </script>
 
 <style scoped>
 .score-summary-card {
-  @apply bg-white rounded-lg shadow-md border border-gray-200 transition-all duration-200;
-}
-
-.winner-card {
-  @apply bg-gradient-to-r from-yellow-100 to-yellow-200 border-yellow-400 border-2 shadow-lg;
-}
-
-.rank-badge {
-  @apply w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f0f0f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .score-summary-card:hover {
-  @apply shadow-lg transform scale-105;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.rank-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  margin-right: 1rem;
+}
+
+.rank-first {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.rank-second {
+  background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+}
+
+.rank-third {
+  background: linear-gradient(135deg, #CD7F32, #B8860B);
+}
+
+.rank-other {
+  background: linear-gradient(135deg, #6c757d, #495057);
+}
+
+.player-details {
+  flex: 1;
+}
+
+.player-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  color: #333;
+}
+
+.total-score {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+  color: #007bff;
+}
+
+.round-scores {
+  border-top: 1px solid #e9ecef;
+  padding-top: 1rem;
+}
+
+.round-scores-header {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 0.5rem;
+}
+
+.round-score {
+  background: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid #e9ecef;
 }
 </style>
