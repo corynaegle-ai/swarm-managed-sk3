@@ -1,0 +1,114 @@
+.round-score-display {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.round-score-display--active {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.round-score-display__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.round-score-display__round,
+.round-score-display__score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.round-score-display__label {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.round-score-display__value {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.round-score-display__indicator {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.round-score-display__pulse {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.round-score-display__text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .round-score-display {
+    padding: 1rem;
+  }
+  
+  .round-score-display__content {
+    gap: 1rem;
+  }
+  
+  .round-score-display__value {
+    font-size: 1.75rem;
+  }
+  
+  .round-score-display__label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .round-score-display__content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .round-score-display__value {
+    font-size: 1.5rem;
+  }
+  
+  .round-score-display__indicator {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+}

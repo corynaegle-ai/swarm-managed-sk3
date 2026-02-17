@@ -1,0 +1,151 @@
+.score-history {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-history__title {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.score-history__empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #666;
+  font-style: italic;
+}
+
+.score-history__list {
+  overflow-x: auto;
+}
+
+.score-history__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.score-history__table th {
+  background: #4a90e2;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-history__table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.score-history__row:last-child td {
+  border-bottom: none;
+}
+
+.score-history__row:nth-child(even) {
+  background: #fafafa;
+}
+
+.score-history__row:hover {
+  background: #f0f8ff;
+}
+
+.score-history__round {
+  font-weight: 500;
+  color: #333;
+}
+
+.score-history__score {
+  font-weight: 600;
+  color: #4a90e2;
+  text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .score-history {
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+  }
+  
+  .score-history__title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .score-history__table th,
+  .score-history__table td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .score-history__empty {
+    padding: 1.5rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .score-history__table {
+    font-size: 0.8rem;
+  }
+  
+  .score-history__table th,
+  .score-history__table td {
+    padding: 0.375rem;
+  }
+  
+  .score-history__title {
+    font-size: 1rem;
+  }
+}
+
+/* Grid layout alternative for very small screens */
+@media (max-width: 320px) {
+  .score-history__table,
+  .score-history__table thead,
+  .score-history__table tbody,
+  .score-history__table th,
+  .score-history__table td,
+  .score-history__table tr {
+    display: block;
+  }
+  
+  .score-history__table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .score-history__table tr {
+    border: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: white;
+  }
+  
+  .score-history__table td {
+    border: none;
+    padding: 0.25rem 0;
+    position: relative;
+  }
+  
+  .score-history__table td:before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    width: 50%;
+    display: inline-block;
+  }
+}
