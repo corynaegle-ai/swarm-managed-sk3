@@ -1,146 +1,103 @@
 const { calculateStandardBidScore } = require('../../src/game/scoring');
 
 describe('calculateStandardBidScore', () => {
-  describe('Valid bid scenarios', () => {
-    it('should return correct score for exact bid match', () => {
-      const result = calculateStandardBidScore(5, 5);
-      expect(result).toBe(15); // 5 tricks + 10 bonus
+  // Test that function exists and is properly exported
+  test('function exists and is callable', () => {
+    expect(typeof calculateStandardBidScore).toBe('function');
+  });
+
+  describe('Basic scoring scenarios', () => {
+    test('exact bid match scores correctly', () => {
+      // When bid equals tricks taken, score = 10 + bid
+      expect(calculateStandardBidScore(3, 3)).toBe(13);
+      expect(calculateStandardBidScore(5, 5)).toBe(15);
+      expect(calculateStandardBidScore(1, 1)).toBe(11);
     });
 
-    it('should return correct score for successful underbid', () => {
-      const result = calculateStandardBidScore(3, 5);
-      expect(result).toBe(8); // 3 bid + 5 actual
+    test('bid mismatch scores correctly', () => {
+      // When bid doesn't match tricks, score = tricks taken only
+      expect(calculateStandardBidScore(3, 2)).toBe(2);
+      expect(calculateStandardBidScore(2, 4)).toBe(4);
+      expect(calculateStandardBidScore(5, 3)).toBe(3);
     });
 
-    it('should return negative score for failed bid', () => {
-      const result = calculateStandardBidScore(5, 3);
-      expect(result).toBe(-5); // -1 * bid amount
-    });
-
-    it('should handle zero bid correctly', () => {
-      const result = calculateStandardBidScore(0, 0);
-      expect(result).toBe(10); // 0 tricks + 10 bonus for exact match
-    });
-
-    it('should handle zero bid with tricks taken', () => {
-      const result = calculateStandardBidScore(0, 3);
-      expect(result).toBe(3); // 0 bid + 3 actual (underbid scenario)
-    });
-
-    it('should handle failed zero bid', () => {
-      // This scenario is impossible in practice but tests edge case
-      const result = calculateStandardBidScore(0, -1);
-      expect(result).toBe(0); // -1 * 0 bid
+    test('zero bid scenarios', () => {
+      // Zero bid with zero tricks should score 10 (exact match)
+      expect(calculateStandardBidScore(0, 0)).toBe(10);
+      // Zero bid with non-zero tricks should score tricks only
+      expect(calculateStandardBidScore(0, 2)).toBe(2);
     });
   });
 
-  describe('Large number scenarios', () => {
-    it('should handle large successful bids', () => {
-      const result = calculateStandardBidScore(13, 13);
-      expect(result).toBe(36); // 13 tricks + 10 bonus + 13 bid
+  describe('Edge cases and input validation', () => {
+    test('handles large valid numbers', () => {
+      expect(calculateStandardBidScore(10, 10)).toBe(20);
+      expect(calculateStandardBidScore(13, 13)).toBe(23);
     });
 
-    it('should handle large failed bids', () => {
-      const result = calculateStandardBidScore(10, 5);
-      expect(result).toBe(-10); // -1 * 10 bid
+    test('rejects negative bid values', () => {
+      expect(() => calculateStandardBidScore(-1, 2)).toThrow('Invalid bid: must be non-negative');
+      expect(() => calculateStandardBidScore(-5, 0)).toThrow('Invalid bid: must be non-negative');
     });
 
-    it('should handle large underbids', () => {
-      const result = calculateStandardBidScore(5, 13);
-      expect(result).toBe(18); // 5 bid + 13 actual
-    });
-  });
-
-  describe('Edge cases and invalid inputs', () => {
-    it('should handle negative bid amounts', () => {
-      const result = calculateStandardBidScore(-5, 3);
-      expect(result).toBe(5); // -1 * -5 bid = 5
+    test('rejects negative tricks values', () => {
+      expect(() => calculateStandardBidScore(2, -1)).toThrow('Invalid tricks: must be non-negative');
+      expect(() => calculateStandardBidScore(0, -3)).toThrow('Invalid tricks: must be non-negative');
     });
 
-    it('should handle negative tricks taken', () => {
-      const result = calculateStandardBidScore(3, -2);
-      expect(result).toBe(-3); // Failed bid: -1 * 3
+    test('rejects non-numeric inputs', () => {
+      expect(() => calculateStandardBidScore('3', 2)).toThrow('Invalid input: bid and tricks must be numbers');
+      expect(() => calculateStandardBidScore(2, '3')).toThrow('Invalid input: bid and tricks must be numbers');
+      expect(() => calculateStandardBidScore(null, 2)).toThrow('Invalid input: bid and tricks must be numbers');
+      expect(() => calculateStandardBidScore(2, undefined)).toThrow('Invalid input: bid and tricks must be numbers');
     });
 
-    it('should handle both negative values', () => {
-      const result = calculateStandardBidScore(-3, -3);
-      expect(result).toBe(7); // -3 tricks + 10 bonus for exact match
-    });
-
-    it('should handle floating point bids', () => {
-      const result = calculateStandardBidScore(2.5, 3);
-      expect(result).toBe(5.5); // 2.5 bid + 3 actual (underbid)
-    });
-
-    it('should handle floating point tricks', () => {
-      const result = calculateStandardBidScore(3, 2.5);
-      expect(result).toBe(-3); // Failed bid: -1 * 3
-    });
-
-    it('should handle string inputs that can be converted to numbers', () => {
-      const result = calculateStandardBidScore('5', '5');
-      expect(result).toBe(15); // Should convert and work like numbers
-    });
-
-    it('should handle null inputs', () => {
-      expect(() => calculateStandardBidScore(null, 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, null)).toThrow();
-    });
-
-    it('should handle undefined inputs', () => {
-      expect(() => calculateStandardBidScore(undefined, 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, undefined)).toThrow();
-    });
-
-    it('should handle non-numeric string inputs', () => {
-      expect(() => calculateStandardBidScore('abc', 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, 'xyz')).toThrow();
-    });
-
-    it('should handle object inputs', () => {
-      expect(() => calculateStandardBidScore({}, 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, {})).toThrow();
-    });
-
-    it('should handle array inputs', () => {
-      expect(() => calculateStandardBidScore([], 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, [])).toThrow();
+    test('rejects NaN and Infinity', () => {
+      expect(() => calculateStandardBidScore(NaN, 2)).toThrow('Invalid input: bid and tricks must be finite numbers');
+      expect(() => calculateStandardBidScore(2, NaN)).toThrow('Invalid input: bid and tricks must be finite numbers');
+      expect(() => calculateStandardBidScore(Infinity, 2)).toThrow('Invalid input: bid and tricks must be finite numbers');
+      expect(() => calculateStandardBidScore(2, -Infinity)).toThrow('Invalid input: bid and tricks must be finite numbers');
     });
   });
 
-  describe('Boundary value testing', () => {
-    it('should handle maximum safe integer values', () => {
-      const maxInt = Number.MAX_SAFE_INTEGER;
-      const result = calculateStandardBidScore(maxInt, maxInt);
-      expect(result).toBe(maxInt + maxInt + 10); // bid + actual + bonus
+  describe('Complex scenarios', () => {
+    test('multiple exact matches in sequence', () => {
+      const testCases = [
+        [1, 1, 11],
+        [2, 2, 12],
+        [3, 3, 13],
+        [4, 4, 14]
+      ];
+      
+      testCases.forEach(([bid, tricks, expected]) => {
+        expect(calculateStandardBidScore(bid, tricks)).toBe(expected);
+      });
     });
 
-    it('should handle minimum safe integer values', () => {
-      const minInt = Number.MIN_SAFE_INTEGER;
-      const result = calculateStandardBidScore(minInt, minInt);
-      expect(result).toBe(minInt + minInt + 10); // bid + actual + bonus for exact match
-    });
-
-    it('should handle infinity values', () => {
-      expect(() => calculateStandardBidScore(Infinity, 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, Infinity)).toThrow();
-      expect(() => calculateStandardBidScore(-Infinity, 5)).toThrow();
-    });
-
-    it('should handle NaN values', () => {
-      expect(() => calculateStandardBidScore(NaN, 5)).toThrow();
-      expect(() => calculateStandardBidScore(5, NaN)).toThrow();
+    test('multiple mismatches in sequence', () => {
+      const testCases = [
+        [1, 2, 2],
+        [2, 1, 1],
+        [3, 5, 5],
+        [5, 3, 3]
+      ];
+      
+      testCases.forEach(([bid, tricks, expected]) => {
+        expect(calculateStandardBidScore(bid, tricks)).toBe(expected);
+      });
     });
   });
 
-  describe('Performance and stress testing', () => {
-    it('should handle multiple rapid calculations', () => {
-      const results = [];
-      for (let i = 0; i < 1000; i++) {
-        results.push(calculateStandardBidScore(i % 13, (i + 1) % 13));
-      }
-      expect(results).toHaveLength(1000);
-      expect(results.every(r => typeof r === 'number')).toBe(true);
+  describe('Boundary conditions', () => {
+    test('maximum reasonable card game values', () => {
+      // Assuming standard deck scenarios
+      expect(calculateStandardBidScore(13, 13)).toBe(26); // All spades bid and made
+      expect(calculateStandardBidScore(13, 12)).toBe(12); // Close miss
+    });
+
+    test('minimum valid values', () => {
+      expect(calculateStandardBidScore(0, 0)).toBe(10); // Nil bid made
+      expect(calculateStandardBidScore(1, 1)).toBe(11); // Minimum positive bid made
     });
   });
 });
