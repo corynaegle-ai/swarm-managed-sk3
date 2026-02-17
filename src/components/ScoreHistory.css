@@ -34,7 +34,7 @@
 }
 
 .score-history__table th {
-  background: #4a90e2;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 0.75rem;
   text-align: left;
@@ -58,7 +58,7 @@
 }
 
 .score-history__row:hover {
-  background: #f0f8ff;
+  background: #f5f3ff;
 }
 
 .score-history__round {
@@ -68,7 +68,7 @@
 
 .score-history__score {
   font-weight: 600;
-  color: #4a90e2;
+  color: #667eea;
   text-align: right;
 }
 
