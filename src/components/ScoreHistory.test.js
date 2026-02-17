@@ -31,7 +31,9 @@ describe('ScoreHistory', () => {
     ];
     render(<ScoreHistory scoreHistory={mockHistory} />);
     
+    expect(screen.getByText('Round 1')).toBeInTheDocument();
     expect(screen.getByText('100')).toBeInTheDocument();
+    expect(screen.getByText('Round 2')).toBeInTheDocument();
     expect(screen.getByText('150')).toBeInTheDocument();
   });
 
